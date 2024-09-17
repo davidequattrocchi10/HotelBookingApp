@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Camera extends Model
+class Booking extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'descrizione', 'prezzo', 'disponibile'];
+    protected $fillable = ['room_id', 'nome', 'email', 'data_checkin', 'data_checkout'];
 }

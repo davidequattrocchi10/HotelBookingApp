@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('room_id')->constrained('rooms'); // Chiave esterna per la camera
             $table->string('nome');
-            $table->text('descrizione');
-            $table->decimal('prezzo', 8, 2);
-            $table->boolean('disponibile')->default(true);
+            $table->string('email');
+            $table->date('data_checkin');
+            $table->date('data_checkout');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('camere');
+        Schema::dropIfExists('bookings');
     }
 };
