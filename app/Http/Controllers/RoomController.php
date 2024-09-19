@@ -8,13 +8,26 @@ use App\Models\Booking;
 
 class RoomController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Recupera tutte le camere (rooms) dal database
-        $rooms = Room::all();
-        // Restituisce la vista e passa i dati delle camere
+        $checkin = $request->input('checkin');
+        $checkout = $request->input('checkout');
+
+        if ($checkin && $checkout) {
+            // Filtra le camere che non hanno prenotazioni nelle date selezionate
+            $rooms = Room::whereDoesntHave('bookings', function ($query) use ($checkin, $checkout) {
+                $query->whereBetween('data_checkin', [$checkin, $checkout])
+                    ->orWhereBetween('data_checkout', [$checkin, $checkout]);
+            })->get();
+        } else {
+            // Se non ci sono date selezionate, mostra tutte le camere
+            $rooms = Room::all();
+        }
+
         return view('rooms.create', compact('rooms'));
     }
+
+
 
     public function store(Request $request)
     {
