@@ -23,9 +23,36 @@
                 <li><a href="#camere" class="text-gray-300 hover:text-white">Camere</a></li>
                 <li><a href="#servizi" class="text-gray-300 hover:text-white">Servizi</a></li>
                 <li><a href="#contatti" class="text-gray-300 hover:text-white">Contatti</a></li>
+
+                <!-- Controllo se l'utente è autenticato -->
                 @auth
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+
+                <li>
+                    <a href="#" class="text-gray-300 hover:text-white"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                </li>
+
+
+
+
+                <!-- Se l'utente autenticato è admin, mostra anche il link alla dashboard -->
+                @if(auth()->user()->hasRole('admin'))
                 <li><a href="/admin" class="text-gray-300 hover:text-white">Dashboard Admin</a></li>
+                @endif
                 @endauth
+
+
+
+                <!-- Mostra Registrati e Login solo se l'utente è ospite -->
+                @guest
+                <li><a href="/register" class="text-gray-300 hover:text-white">Registrati</a></li>
+                <li><a href="/login" class="text-gray-300 hover:text-white">Login</a></li>
+                @endguest
             </ul>
         </div>
     </nav>

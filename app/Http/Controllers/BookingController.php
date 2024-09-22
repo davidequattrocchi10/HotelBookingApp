@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Http\Request;
+use App\Mail\PrenotazioneConfermata;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -33,7 +35,7 @@ class BookingController extends Controller
         }
 
         // Creazione della prenotazione se disponibile
-        Booking::create([
+        $booking =  Booking::create([
             'room_id' => $request->room_id,
             'nome' => $request->nome,
             'email' => $request->email,
@@ -41,6 +43,9 @@ class BookingController extends Controller
             'data_checkout' => $request->data_checkout,
         ]);
 
-        return redirect('/')->with('success', 'Prenotazione completata con successo!');
+        // Invio dell'email di conferma
+        Mail::to($booking->email)->send(new PrenotazioneConfermata($booking));
+
+        return redirect('/')->with('success', 'Prenotazione completata con successo! Ti abbiamo inviato un\'email di conferma.');
     }
 }
