@@ -18,7 +18,7 @@ Route::get('/', function () {
     ]);
 });
 
-// Rotta per la dashboard (per utenti autenticati)
+// Rotta per la home (per utenti autenticati)
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -29,6 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Rotta per prenotazioni
+    Route::post('/prenotazioni', [BookingController::class, 'store'])->name('prenotazioni.store');
+    Route::get('/booking/edit/{id}', [BookingController::class, 'edit'])->name('booking.edit');
+    Route::post('/booking/update/{id}', [BookingController::class, 'update'])->name('booking.update');
+    Route::post('/booking/cancel/{id}', [BookingController::class, 'cancel'])->name('booking.cancel');
+    Route::get('/user/bookings', [BookingController::class, 'userBookings'])->name('user.bookings');
 });
 
 
@@ -46,10 +53,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rotta per visualizzare le camere nella homepage
 Route::get('/', [RoomController::class, 'index']);
-
-// Rotta per prenotazioni
-Route::post('/prenotazioni', [BookingController::class, 'store'])->name('prenotazioni.store');
-
-
 
 require __DIR__ . '/auth.php';

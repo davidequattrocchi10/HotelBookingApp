@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_id')->constrained('rooms'); // Chiave esterna per la camera
-            $table->string('nome');
-            $table->string('email');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relazione con l'utente
             $table->date('data_checkin');
             $table->date('data_checkout');
             $table->timestamps();
