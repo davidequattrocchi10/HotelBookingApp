@@ -1,5 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
+import axios from 'axios';
+
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';

@@ -9,6 +9,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     @vite('resources/css/app.css')
 </head>
 
@@ -94,6 +96,11 @@
                 <a href="#" class="text-gray-400 hover:text-white">LinkedIn</a>
             </div>
         </div>
+
+
+
+
+
     </footer>
 
 
@@ -122,6 +129,9 @@
             dateFormat: "Y-m-d",
         });
     </script>
+
+
+
     @vite('resources/js/app.js')
 
 

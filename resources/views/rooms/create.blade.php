@@ -94,6 +94,65 @@
     </div>
 </div>
 
+<!-- Icona del chatbot -->
+<div id="chatbot-icon">
+    <img src="https://pbs.twimg.com/profile_images/1795851438956204032/rLl5Y48q_400x400.jpg" alt="Chatbot" id="chatbot-image" style="width: 60px; height: 60px;">
+</div>
+
+<!-- Finestra del chatbot -->
+<div id="chatbot-window" style="display: none;">
+    <div id="chatbot-header">Un AI tutta per te</div>
+    <div id="chatbot-messages"></div>
+    <div id="chatbot-input">
+        <input type="text" id="chatbot-user-message" placeholder="Scrivi qualcosa...">
+        <button id="chatbot-submit">Invia</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mostra/Nasconde la finestra del chatbot quando si clicca sull'icona
+        document.getElementById('chatbot-icon').addEventListener('click', function() {
+            var chatbotWindow = document.getElementById('chatbot-window');
+            chatbotWindow.style.display = (chatbotWindow.style.display === 'none' || chatbotWindow.style.display === '') ? 'block' : 'none';
+        });
+
+        // Invia il messaggio al chatbot quando si clicca su "Invia" o si preme 'Enter'
+        function sendMessage() {
+            let userMessage = document.getElementById('chatbot-user-message').value;
+            if (userMessage.trim() !== '') {
+                // Mostra il messaggio dell'utente
+                document.getElementById('chatbot-messages').innerHTML += `<div><strong>Utente:</strong> ${userMessage}</div>`;
+
+                axios.post('/botman/chat', {
+                    driver: 'web',
+                    message: userMessage
+                }).then(function(response) {
+                    // Mostra la risposta del bot
+                    const botReply = response.data.messages[0].text; // Correzione per leggere il testo corretto
+                    document.getElementById('chatbot-messages').innerHTML += `<div><strong>Bot:</strong> ${botReply}</div>`;
+                    document.getElementById('chatbot-user-message').value = '';
+                }).catch(function(error) {
+                    console.error('Errore:', error);
+                });
+            }
+        }
+
+        // Invia messaggio cliccando su "Invia"
+        document.getElementById('chatbot-submit').addEventListener('click', function() {
+            sendMessage();
+        });
+
+        // Invia messaggio premendo 'Enter'
+        document.getElementById('chatbot-user-message').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Previene il comportamento predefinito di invio del form
+                sendMessage();
+            }
+        });
+    });
+</script>
+
 
 
 <!-- Sezione Descrittiva: Cosa fare nei dintorni -->
@@ -135,4 +194,5 @@
         </div>
     </div>
 </div>
+
 @endsection

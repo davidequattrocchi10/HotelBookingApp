@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BotManController;
 
 // Rotta per la home
 Route::get('/', function () {
@@ -53,5 +54,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Rotta per visualizzare le camere nella homepage
 Route::get('/', [RoomController::class, 'index']);
+
+Route::match(['get', 'post'], '/botman/chat', [BotManController::class, 'handle']);
+
 
 require __DIR__ . '/auth.php';
