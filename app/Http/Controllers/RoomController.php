@@ -56,4 +56,11 @@ class RoomController extends Controller
 
         return redirect('/')->with('success', 'Prenotazione completata con successo!');
     }
+
+    // Metodo per mostrare tutte le camere nella view camere.blade.php
+    public function showAll()
+    {
+        $rooms = Room::all();
+        return view('rooms.camere', compact('rooms'));
+    }
 }

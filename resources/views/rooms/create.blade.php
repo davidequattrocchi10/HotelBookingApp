@@ -17,7 +17,7 @@
 
 
 
-
+<!-- Section Prenotazione  -->
 <div class="bg-gray-100 text-gray-900 py-5 mb-5">
     <div class="container">
         <h1 class="text-3xl font-bold mb-3">Prenota la tua stanza</h1>
@@ -42,11 +42,65 @@
 </div>
 
 
+<!-- Sezione di Recensioni e Upselling -->
+<div class="bg-gray-100 py-12">
+    <div class="container mx-auto">
+        <h2 class="text-3xl font-bold mb-8 text-center">Recensioni dei Nostri Ospiti</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="review-card bg-white shadow-md rounded-lg p-4 mb-6">
+                    <p class="text-gray-700 mb-4">"Un'esperienza indimenticabile! Camere pulite e servizio impeccabile."</p>
+                    <h5 class="font-semibold text-gray-900">- Marco Rossi</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="review-card bg-white shadow-md rounded-lg p-4 mb-6">
+                    <p class="text-gray-700 mb-4">"Posizione perfetta e comfort eccellente. Torneremo sicuramente."</p>
+                    <h5 class="font-semibold text-gray-900">- Laura Bianchi</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="review-card bg-white shadow-md rounded-lg p-4 mb-6">
+                    <p class="text-gray-700 mb-4">"Colazione deliziosa e vista mozzafiato dalla nostra camera."</p>
+                    <h5 class="font-semibold text-gray-900">- Giovanni Verdi</h5>
+                </div>
+            </div>
+        </div>
 
+        <!-- Sezione Upselling -->
+        <h2 class="text-3xl font-bold mt-10 mb-8 text-center">Servizi Extra per un Soggiorno Perfetto</h2>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="flex justify-center mb-4">
+                    <img src="https://via.placeholder.com/200" alt="Colazione in Camera" class="mb-4">
+                </div>
+                <h4 class="text-xl font-bold">Colazione in Camera</h4>
+                <p class="text-gray-600">Solo €20 in più per iniziare la giornata nel massimo comfort.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="flex justify-center mb-4">
+                    <img src="https://via.placeholder.com/200" alt="Spa e Benessere" class="mb-4">
+                </div>
+                <h4 class="text-xl font-bold">Accesso alla Spa</h4>
+                <p class="text-gray-600">Rilassati nella nostra spa con sauna e idromassaggio.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="flex justify-center mb-4">
+                    <img src="https://via.placeholder.com/200" alt="Servizio Navetta" class="mb-4">
+                </div>
+                <h4 class="text-xl font-bold">Servizio Navetta</h4>
+                <p class="text-gray-600">Navetta gratuita per l'aeroporto e principali attrazioni turistiche.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Section Camere -->
 <div id="camere" class="container mt-5">
     <h2 class="text-3xl font-bold mb-8 text-center">Le nostre camere</h2>
     <div class="row">
-        @foreach ($rooms as $room)
+        @foreach ($rooms->take(6) as $room) <!-- Mostra solo le prime 6 camere -->
         <div class="col-md-4 mb-5">
             <div class="card shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
                 <img src="https://via.placeholder.com/400x200" alt="{{ $room->nome }}" class="w-full">
@@ -91,6 +145,10 @@
             </div>
         </div>
         @endforeach
+    </div>
+    <!-- Bottone per visualizzare tutte le camere -->
+    <div class="text-center mt-5">
+        <a href="{{ route('rooms.camere') }}" class="btn btn-secondary">Visualizza tutte le camere</a>
     </div>
 </div>
 

@@ -57,5 +57,9 @@ Route::get('/', [RoomController::class, 'index']);
 
 Route::match(['get', 'post'], '/botman/chat', [BotManController::class, 'handle']);
 
+// Rotta per visualizzare tutte le camere
+Route::get('/camere', [RoomController::class, 'showAll'])->name('rooms.camere');
+
+
 
 require __DIR__ . '/auth.php';
