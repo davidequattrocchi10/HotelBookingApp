@@ -66,8 +66,33 @@
         .main-content {
             margin-left: 250px;
             /* Spazio per la sidebar */
-            padding: 20px;
+            padding: 40px 20px;
+            ;
             transition: margin-left 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .card h5 {
+            color: #343a40;
+        }
+
+        .table {
+            margin-top: 30px;
+        }
+
+        #calendar {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         /* Sidebar in modalità responsive (solo icone) */
@@ -93,6 +118,17 @@
                 /* Aumento leggero delle icone su mobile */
             }
         }
+
+        h2 {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            /* Centrato orizzontalmente */
+            padding: 10px;
+            border-radius: 5px;
+            /* Leggera arrotondatura per estetica */
+        }
+
 
         footer {
             margin-top: 50px;
