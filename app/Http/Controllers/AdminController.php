@@ -62,7 +62,16 @@ class AdminController extends Controller
             'descrizione' => 'required|string',
             'prezzo' => 'required|numeric',
             'disponibile' => 'required|boolean',
+            'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Aggiunta della validazione per l'immagine
         ]);
+
+        // Gestione del caricamento dell'immagine
+        $imageName = null;
+        if ($request->hasFile('immagine')) {
+            $imageName = time() . '.' . $request->immagine->extension();
+            $request->immagine->move(public_path('images'), $imageName); // Salva l'immagine nella cartella 'public/images'
+        }
+
 
         // Creazione della camera
         Room::create([
@@ -70,6 +79,7 @@ class AdminController extends Controller
             'descrizione' => $request->descrizione,
             'prezzo' => $request->prezzo,
             'disponibile' => $request->disponibile,
+            'immagine' => $imageName // Salva il nome dell'immagine se è stata caricata
         ]);
 
         return redirect()->route('admin.camere')->with('success', 'Camera aggiunta con successo!');
@@ -89,15 +99,33 @@ class AdminController extends Controller
             'descrizione' => 'required|string',
             'prezzo' => 'required|numeric',
             'disponibile' => 'required|boolean',
+            'immagine' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Validazione per l'immagine
         ]);
 
         // Trova la camera e aggiorna i dati
         $room = Room::findOrFail($id);
+
+        // Se è stata caricata una nuova immagine
+        if ($request->hasFile('immagine')) {
+            // Cancella l'immagine precedente se esiste
+            if ($room->immagine && file_exists(public_path('images/' . $room->immagine))) {
+                unlink(public_path('images/' . $room->immagine)); // Cancella il vecchio file immagine
+            }
+
+            // Carica la nuova immagine
+            $imageName = time() . '.' . $request->immagine->extension();
+            $request->immagine->move(public_path('images'), $imageName);
+        } else {
+            // Mantiene l'immagine esistente se non viene caricata una nuova immagine
+            $imageName = $room->immagine;
+        }
+
         $room->update([
             'nome' => $request->nome,
             'descrizione' => $request->descrizione,
             'prezzo' => $request->prezzo,
             'disponibile' => $request->disponibile,
+            'immagine' => $imageName
         ]);
 
         return redirect()->route('admin.camere')->with('success', 'Camera modificata con successo!');

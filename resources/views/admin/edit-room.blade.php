@@ -6,7 +6,7 @@
 <div class="container">
     <h1 class="text-3xl font-bold mb-6">Modifica Camera</h1>
 
-    <form action="{{ route('admin.update-room', $room->id) }}" method="POST">
+    <form action="{{ route('admin.update-room', $room->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group mb-3">
             <label for="nome" class="form-label">Nome Camera</label>
@@ -21,6 +21,11 @@
         <div class="form-group mb-3">
             <label for="prezzo" class="form-label">Prezzo</label>
             <input type="number" name="prezzo" id="prezzo" class="form-control" value="{{ $room->prezzo }}" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="immagine" class="form-label">Immagine della Camera</label>
+            <input type="file" name="immagine" id="immagine" class="form-control" value="{{ $room->immagine }}" required>
         </div>
 
         <div class="form-group mb-3">

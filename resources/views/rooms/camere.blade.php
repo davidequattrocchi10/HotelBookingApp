@@ -5,11 +5,11 @@
 
 
 <!-- Carousel delle Immagini di Tutte le Camere -->
-<div id="roomsCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="5000">
-    <div class="carousel-inner" style="max-height: 400px; max-width: 800px; margin: 0 auto;">
+<div id="roomsCarousel" class="carousel slide mb-5 mt-5" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner" style="max-height: 500px; max-width: 900px; margin: 0 auto;">
         @foreach ($rooms as $index => $room)
         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-            <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="Immagine di {{ $room->nome }}">
+            <img src="{{ asset('images/' . $room->immagine) }}" alt="{{ $room->nome }}" class="d-block w-100" alt="Immagine di {{ $room->nome }}">
             <div class="carousel-caption d-none d-md-block">
                 <h5>{{ $room->nome }}</h5>
                 <p>{{ $room->descrizione }}</p>
@@ -35,7 +35,11 @@
         @foreach ($rooms->take(6) as $room) <!-- Mostra solo le prime 6 camere -->
         <div class="col-md-4 mb-5">
             <div class="card shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
+                @if ($room->immagine)
+                <img src="{{ asset('images/' . $room->immagine) }}" alt="{{ $room->nome }}" class="w-full">
+                @else
                 <img src="https://via.placeholder.com/400x200" alt="{{ $room->nome }}" class="w-full">
+                @endif
                 <div class="card-body p-4">
                     <h5 class="card-title text-xl font-semibold">{{ $room->nome }}</h5>
                     <p class="card-text text-gray-600">{{ $room->descrizione }}</p>

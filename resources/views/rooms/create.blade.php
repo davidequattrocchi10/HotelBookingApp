@@ -3,8 +3,12 @@
 @section('content')
 
 
-<!-- Hero Section con immagine di un hotel bellissimo -->
-<section class="relative bg-cover bg-center h-screen" style="background-image: url('https://images.unsplash.com/photo-1560347876-aeef00ee58a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max');">
+<!-- Hero Section con video di sfondo -->
+<section class="relative h-screen">
+    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+        <source src="{{ asset('videos/videohotel.mp4') }}" type="video/mp4">
+        Il tuo browser non supporta i video.
+    </video>
     <div class="absolute inset-0 bg-black opacity-50"></div> <!-- Sovrapposizione scura per rendere il testo leggibile -->
     <div class="container mx-auto h-full flex items-center justify-center">
         <div class="text-center text-white z-10">
@@ -14,6 +18,7 @@
         </div>
     </div>
 </section>
+
 
 
 
@@ -72,21 +77,21 @@
         <div class="row">
             <div class="col-md-4 text-center">
                 <div class="flex justify-center mb-4">
-                    <img src="https://via.placeholder.com/200" alt="Colazione in Camera" class="mb-4">
+                    <img src="{{ asset('images/colazione.jpg') }}" alt="Colazione in Camera" class="mb-4" style="width: 200px; height: 200px;">
                 </div>
                 <h4 class="text-xl font-bold">Colazione in Camera</h4>
                 <p class="text-gray-600">Solo €20 in più per iniziare la giornata nel massimo comfort.</p>
             </div>
             <div class="col-md-4 text-center">
                 <div class="flex justify-center mb-4">
-                    <img src="https://via.placeholder.com/200" alt="Spa e Benessere" class="mb-4">
+                    <img src="{{ asset('images/spa.jpg') }}" alt="Spa e Benessere" class="mb-4" style="width: 200px; height: 200px;">
                 </div>
                 <h4 class="text-xl font-bold">Accesso alla Spa</h4>
                 <p class="text-gray-600">Rilassati nella nostra spa con sauna e idromassaggio.</p>
             </div>
             <div class="col-md-4 text-center">
                 <div class="flex justify-center mb-4">
-                    <img src="https://via.placeholder.com/200" alt="Servizio Navetta" class="mb-4">
+                    <img src="{{ asset('images/navetta.jpg') }}" alt="Spa e Benessere" class="mb-4" style="width: 200px; height: 200px;">
                 </div>
                 <h4 class="text-xl font-bold">Servizio Navetta</h4>
                 <p class="text-gray-600">Navetta gratuita per l'aeroporto e principali attrazioni turistiche.</p>
@@ -103,7 +108,11 @@
         @foreach ($rooms->take(6) as $room) <!-- Mostra solo le prime 6 camere -->
         <div class="col-md-4 mb-5">
             <div class="card shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
+                @if ($room->immagine)
+                <img src="{{ asset('images/' . $room->immagine) }}" alt="{{ $room->nome }}" class="w-full">
+                @else
                 <img src="https://via.placeholder.com/400x200" alt="{{ $room->nome }}" class="w-full">
+                @endif
                 <div class="card-body p-4">
                     <h5 class="card-title text-xl font-semibold">{{ $room->nome }}</h5>
                     <p class="card-text text-gray-600">{{ $room->descrizione }}</p>
